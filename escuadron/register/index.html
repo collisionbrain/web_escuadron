@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  
+  <link rel='stylesheet' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.0-rc3/angular-material.css'> 
+ <link rel="stylesheet" href="css/style.css">
+  
+  
+</head>
+
+<body>
+
+  <div ng-controller="DemoCtrl" ng-cloak="" class="md-inline-form" ng-app="MyApp" layout="column" layout-sm="row" layout-align="center center" layout-align-sm="start start" layout-fill>
+		<md-content id="SignupContent" class="md-whiteframe-10dp" flex-sm>
+				<md-toolbar flex id="materialToolbar">
+						<div class="md-toolbar-tools"> <span flex=""></span> <span class="md-headline" align="center">Pre - Registro del paciente</span> <span flex=""></span> </div>
+				</md-toolbar>
+				<div layout-padding="">
+						<div></div>
+						<form name="userForm" method="POST" ng-submit="formsubmit(userForm.$valid)" enctype="multipart/form-data">
+								<input type="hidden" name="action" value="signup" />
+								<div layout="row" layout-sm="column">
+										<md-input-container flex-gt-sm="">
+												<label>Nombre completo</label>
+												<input ng-model="user.nombre_completo" value="XXXXXXXXXXXXXXXXXX" name="name" required type="text" ng-pattern="/^[a-zA-Z'. -]+$/"  >
+												<div ng-if="userForm.nombre_completo.$dirty" ng-messages="userForm.nombre_completo.$error" role="alert">
+														<div ng-message="required" class="my-message">Indica tu nombre.</div>
+														<div ng-message="pattern" class="my-message">¿Tu nombre es correcto?.</div>
+												</div>
+										</md-input-container>
+									 
+								</div>
+								<div layout="row" layout-sm="column">
+										<md-input-container flex-gt-sm="">
+												<label>CURP</label>
+												<input required type="text" name="curp" ng-model="user.curp" ng-pattern="/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/"   />
+												<div ng-if="userForm.curp.$dirty" ng-messages="userForm.curp.$error" role="alert">
+														<div ng-message="required" class="my-message">El curp es obligatorio.</div>
+														<div ng-message="pattern" class="my-message">¿Tu curp es correcto?</div>
+														<div ng-message="email" class="my-message">¿Tu curp es correcto?</div>
+												</div>
+										</md-input-container>
+								</div>
+										<div layout="row" layout-sm="column">
+										<md-input-container flex-gt-sm="">
+												<label>Correo electronico</label>
+												<input required type="email" name="email" text="xxxxx@mail.com" ng-model="user.correo" ng-pattern="/^[_a-z0-9-+]+(\.[_a-z0-9-+]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"   />
+												<div ng-if="userForm.correo.$dirty" ng-messages="userForm.correo.$error" role="alert">
+														<div ng-message="required" class="my-message">El correo es obligatorio.</div>
+														<div ng-message="pattern" class="my-message">¿Tu correo es correcto?</div>
+														<div ng-message="email" class="my-message">¿Tu correo es correcto?</div>
+												</div>
+										</md-input-container>
+								</div>
+									 <div layout="row" layout-sm="column">
+										<md-input-container flex-gt-sm="">
+												<label>Numero telefonico</label>
+												<input required type="telfono" name="telefono" text="5530908978" ng-model="user.telefono" ng-pattern="/^[0-9]*$/" placeholder="5512345678" maxlength="10" />
+												<div ng-if="userForm.telefono.$dirty" ng-messages="userForm.telefono.$error" role="alert">
+														<div ng-message="required" class="my-message">El telefono es obligatorio.</div>
+														<div ng-message="pattern" class="my-message">¿Tu telefono es correcto? </div>
+														<div ng-message="telefono" class="my-message">¿Tu telefono es correcto? </div>
+												</div>
+										</md-input-container>
+								</div>
+								
+								<div layout="row" layout-sm="column">
+										<p style="font-size: 12px; margin-left: 3px; margin-top: 18px;">Genero: </p> 
+										<md-radio-group style="margin: 12px 0 19px;" ng-model="user.genero" required>
+												<md-radio-button value="masculino" class="md-primary">Masculino</md-radio-button>
+												<md-radio-button value="femenino">Femenino</md-radio-button>
+										</md-radio-group>     
+								</div>
+							<div layout="row" layout-sm="column">
+										<input class="ng-hide" id="input-file-id" multiple type="file" />
+										<label for="input-file-id" class="md-button md-raised md-primary">Identificacion Oficial</label>
+								</div>
+						  
+						<div layout="row" layout-sm="column"> 
+ 						 <div layout="row">
+   						 <md-input-container style="margin: 12px 0 19px;">
+							<label>Selecciona tu padecimiento</label>
+    					  <md-select ng-model="user.patology" md-selected-text="getSelectedText()">
+    					   <md-optgroup label="items">
+     					   <md-option ng-repeat="item in items" ng-value="item">{{item}}</md-option>
+       					</md-optgroup>
+      					</md-select>
+    						</md-input-container>
+    
+   					
+						  </div>
+						</div>
+						
+					   <div layout="row" layout-sm="column"> 
+ 						 
+   						   <div flex-gt-xs> 
+								  <p style="font-size: 12px; margin-left: 3px; margin-top: 18px;">Fecha de nacimiento: </p>
+								  <md-datepicker ng-model="user.fecha_nacimiento"  
+									  md-min-date="ctrl.minDate" md-max-date="ctrl.maxDate"></md-datepicker>
+								</div>
+									<div flex-gt-xs>
+								  <p style="font-size: 12px; margin-left: 3px; margin-top: 18px;">Fecha de diagnostico: </p>
+								  <md-datepicker ng-model="user.fecha_diagnostico" 
+									  md-min-date="ctrl.minDate" md-max-date="ctrl.maxDate"></md-datepicker>
+								</div>				  
+						</div>
+						 
+					    <div layout="row" layout-sm="column">
+					     <md-radio-group style="margin: 12px 0 19px;" ng-model="user.product" required>
+								<md-radio-button value="pomada" class="md-primary">Pomada Cannadol de 120 gr</md-radio-button>
+								<md-radio-button value="extracto">Extracto Cannadol de aceite de oliva</md-radio-button>
+								<md-radio-button value="ambos">Ambos</md-radio-button>
+						</md-radio-group>		 
+				        </div>
+						
+						  <div layout="row" layout-align="center center">
+							<md-button class="md-raised circular-progress-button md-primary" ng-click="showSpinner = !showSpinner" keep-width ng-disabled="userForm.$invalid"     type="submit" name="submit">
+							  <span ng-show="!showSpinner">Registrarme</span>
+							  <md-progress-circular class="md-primary md-hue-1" md-mode="indeterminate" md-diameter="20" ng-show="showSpinner"></md-progress-circular>
+							</md-button>
+						  </div>
+						 
+					</form>
+						
+				</div>
+		</md-content>
+</div>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js'></script>
+<script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.0-rc3/angular-material.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script> 
+<script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
